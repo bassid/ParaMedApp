@@ -1,3 +1,32 @@
-page-home {
+ion-app,
+ion-content,
+ion-footer,
+ion-page,
+ion-navbar,
+.nav-decor {
+  background-color: transparent !important;
+}
 
+#homeFooter {
+  height: 8em;
+}
+
+#camera {
+  font-size: 2em;
+}
+
+#menu {
+  font-size: 1.5em;
+}
+
+#camCard {
+  // position: static;
+  margin-left: 2.5em;
+  height: 3.8em;
+  width: 3.8em;
+  border-style: solid;
+  border-width: 1.5px;
+  border-color: rgb(255, 253, 246);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.5);
 }

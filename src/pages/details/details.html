@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar class="detailsNavBar" color="customBlue">
+
+    <h2 id="title">New Incident</h2>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div #map id="map"></div>
+
+  <div class="description">
+    <p>
+      <b>Your Location:</b> {{posLoc.lat}}, {{posLoc.lng}}
+    </p>
+
+    <p>
+      <b>Please Provide Your Mobile Number:</b>
+    </p>
+    <textarea placeholder="+61 4XX XXX XXX" id="phoneNumber" rows="1" type="text" value=""></textarea>
+
+    <p>
+      <b>Enter Incident Description:</b>
+    </p>
+    <textarea placeholder="Types of injuries, number of casualties, cause of incident, etc." id="text" rows="10" type="text" value=""></textarea>
+
+  </div>
+
+</ion-content>
+
+<ion-footer no-border>
+  <ion-navbar transparent>
+
+    <button ion-button icon-end full large color="customBlue" id="submitBtn" (click)="submit()">
+      Submit
+      <ion-icon name="md-send"></ion-icon>
+    </button>
+
+  </ion-navbar>
+</ion-footer>

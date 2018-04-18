@@ -38,28 +38,30 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  customBlue: rgb(0, 153, 180),
+  customCream: rgb(255, 253, 246)
 );
 
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
+$menu-ios-background: rgb(253, 247, 232);
 
 
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
+$menu-md-background: rgb(255, 252, 244); 
 
 
 
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
-
+$menu-wp-background: rgb(253, 247, 232);
 
 
 

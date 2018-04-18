@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-navbar color="customBlue">
+    <ion-grid no-padding>
+      <ion-row align-items-center style="text-align: center;">
+
+        <ion-col col-4>
+          <button ion-button round large color="customCream" (click)="closePhotos()">
+            <ion-icon name="md-close"></ion-icon>
+          </button>
+        </ion-col>
+
+        <ion-col col-4 id="photoTitle">
+          New Incident Photos
+        </ion-col>
+
+        <ion-col col-4>
+          <button ion-button round large color="customCream" (click)="goToDetails()">
+            <ion-icon name="md-checkmark"></ion-icon>
+          </button>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-slides pager="true">
+    <ion-slide *ngFor="let pic of thePhotos">
+      <ion-card class="slidecard">
+
+        <img src={{pic}} />
+        <button ion-fab small round color="danger" id="remove" (click)="removePhoto(pic)">
+          <ion-icon name="md-remove"></ion-icon>
+        </button>
+
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+  <!--   
+    <div class="photoViewButtons">
+  
+  
+  
+    </div> -->
+
+</ion-content>

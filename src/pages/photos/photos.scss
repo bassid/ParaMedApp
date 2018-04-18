@@ -1,0 +1,40 @@
+page-photo {
+    background: rgba(255, 253, 246, 0.8);
+}
+
+.photoNavbar {
+    text-align: center;
+}
+
+#back, #title, #forward {
+    display: inline-block;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 3%;
+}
+
+ion-slides {
+    height: 100%;
+    // background-color: white;
+    background: rgba(255, 253, 246, 0.8);
+}
+
+.slidecard {
+    border-style: solid;
+    border-width: 0.3em;
+    border-color: rgb(0, 153, 180);
+    border-radius: 11px;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.4); 
+}
+
+#remove {
+    position: absolute;
+    right: 1%;
+    top: 9%;
+    border-radius: 500px;
+}
+
+#photoTitle {
+    color: rgb(255, 253, 246);
+    font-size: 1.5em;
+}

@@ -1,18 +1,32 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
 </ion-content>
+
+
+<ion-footer id="homeFooter" no-border>
+  <ion-navbar transparent>
+    <ion-grid no-padding>
+      <ion-row align-items-center style="text-align: center;">
+
+        <ion-col col-4>
+          <button ion-button round large color="customCream" (click)="openMenu()">
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        </ion-col>
+
+        <ion-col col-4>
+          <button ion-button round large color="customBlue" id="camera" (click)="takePicture()">
+            <ion-icon name="camera"></ion-icon>
+          </button>
+        </ion-col>
+
+        <ion-col col-4>
+          <ion-card id="camCard" (click)="goToPhoto()">
+            <img src={{picture}} />
+          </ion-card>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+</ion-footer>
