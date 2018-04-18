@@ -33,7 +33,7 @@ export class PhotosPage {
 
     if (this.thePhotos.length == 0) {
       let alert = this.alertCtrl.create({
-        title: 'Take a snap!',
+        title: 'Capture a photo!',
         subTitle: 'Please snap at least 1 photo of your situation',
         buttons: ['Ok']
       });
