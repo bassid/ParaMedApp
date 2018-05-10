@@ -10,10 +10,19 @@ import { DetailsPage } from '../details/details';
 export class PhotosPage {
 
   public thePhotos: any = [];
+  public incidentID: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public viewCtrl: ViewController, public platform: Platform, public alertCtrl: AlertController) {
+
     this.thePhotos = this.navParams.get('photos');
+
+    if (this.navParams.get('incident')) {
+      this.incidentID = "Incident #" + this.navParams.get('incident').id_num + " Photos";
+    }
+    else {
+      this.incidentID = "New Incident Photos";
+    }
   }
 
 
@@ -41,10 +50,10 @@ export class PhotosPage {
     } else {
 
       let data = {
-        photos: this.thePhotos
+        photos: this.thePhotos,
+        incident: this.navParams.get('incident')
       };
 
-      // this.viewCtrl.dismiss();
       this.navCtrl.push(DetailsPage, data);
     }
   }

@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar color="customBlue" style="font-size: 0.3em;">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Recent Incidents</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <div id="blank" *ngIf="data" style="overflow:scroll; height: 100%; width: 100%;">
+
+    <ion-list>
+      <ion-item *ngFor="let item of data" style="background-color: rgb(255, 254, 249);">
+        <button ion-item style="border-style: solid; border-width: 1px; border-radius: 11px;" (click)="goToIncident(item)" (press)="deleteAlert(item)">
+          <p>Incident ID: #{{item?.id_num}}</p>
+          <p>Datetime: {{item?.time}}</p>
+          <p>Location: {{item?.location}}</p>
+
+          <ion-grid>
+            <ion-row justify-content-center align-items-center style="text-align: center;">
+              <ion-col *ngFor="let pic of item.photos">
+                <ion-card style="height: 6em; width: 6em; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); ">
+                  <img src={{pic}} />
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </button>
+      </ion-item>
+    </ion-list>
+
+  </div>
+
+  <div id="blank1" *ngIf="!data">
+    <h1>There are no recent incidents saved on this device</h1>
+  </div>
+
+</ion-content>

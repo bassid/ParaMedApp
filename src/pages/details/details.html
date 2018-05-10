@@ -2,7 +2,7 @@
 
   <ion-navbar class="detailsNavBar" color="customBlue">
 
-    <h2 id="title">New Incident</h2>
+    <h2 id="title">{{incidentTitle}}</h2>
 
   </ion-navbar>
 
@@ -10,30 +10,38 @@
 
 
 <ion-content>
+  <div style="overflow:scroll; height: 100%;">
+    <div #map id="map"></div>
 
-  <div #map id="map"></div>
+    <div class="description">
+      <p id="myAddress">
+        <b>Your Location:</b> {{address}}
+      </p>
 
-  <div class="description">
-    <p>
-      <b>Your Location:</b> {{posLoc.lat}}, {{posLoc.lng}}
-    </p>
+      <p>
+        <b>Please Provide Your Mobile Number:</b>
+      </p>
+      <textarea placeholder="+61 4XX XXX XXX" id="phoneNumber" rows="1" type="text" value="" [(ngModel)]="mobileNum"></textarea>
 
-    <p>
-      <b>Please Provide Your Mobile Number:</b>
-    </p>
-    <textarea placeholder="+61 4XX XXX XXX" id="phoneNumber" rows="1" type="text" value=""></textarea>
+      <div id="initialDesc" *ngIf="update">
+        <p>
+          <b>Enter Additional Information:</b>
+        </p>
+        <textarea placeholder="Has anything changed since you last submitted?" id="text" rows="10" type="text"
+          value="" [(ngModel)]="additionalInfo"></textarea>
+      </div>
 
-    <p>
-      <b>Enter Incident Description:</b>
-    </p>
-    <textarea placeholder="Types of injuries, number of casualties, cause of incident, etc." id="text" rows="10" type="text" value=""></textarea>
+      <div id="additionalDesc" *ngIf="!update">
+        <p>
+          <b>Enter Incident Description:</b>
+        </p>
+        <textarea placeholder="Types of injuries, number of casualties, cause of incident, etc." id="text" rows="10" type="text"
+          value="" [(ngModel)]="bindedDesc"></textarea>
+      </div>
 
-    <p>
-      <b>Incident ID:</b> #023281
-    </p>
 
+    </div>
   </div>
-
 </ion-content>
 
 <ion-footer no-border>

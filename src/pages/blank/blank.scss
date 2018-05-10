@@ -1,0 +1,16 @@
+page-blank {
+    background-color: color($colors, customCream);
+}
+
+#blank1 {
+    z-index: 1000000;
+    border-width: 1em; 
+    border-color: blue;
+    border-style: solid;
+}
+
+#blank {
+    // border-width: 0.3em; 
+    // border-color: black;
+    // border-style: solid;
+}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController } from 'ionic-angular';
+import { ModalController, NavController, NavParams } from 'ionic-angular';
 
 import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions } from '@ionic-native/camera-preview';
 import { MenuController } from 'ionic-angular';
@@ -25,16 +25,23 @@ const pictureOpts: CameraPreviewPictureOptions = {
 
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-update-cam',
+  templateUrl: 'update-cam.html'
 })
-export class HomePage {
+export class UpdateCamPage {
 
   public picture: string;
   public photos: any = [];
+  public jsonData: any = {};
 
   constructor(public navCtrl: NavController, private cameraPreview: CameraPreview,
-    public menuCtrl: MenuController, public modalCtrl: ModalController) { }
+    public menuCtrl: MenuController, public modalCtrl: ModalController, public navParams: NavParams) { 
+
+      this.jsonData = this.navParams.get('incident');
+      this.photos = this.jsonData.photos;
+      this.picture = this.photos[0];
+      // alert(JSON.stringify(this.jsonData));
+    }
 
   ngAfterViewInit() {
     this.cameraPreview.startCamera(cameraPreviewOpts).then(
@@ -64,7 +71,13 @@ export class HomePage {
   }
 
   goToPhoto() {
-    let modal = this.modalCtrl.create(PhotosPage, { photos: this.photos });
+
+    let data = {
+      incident: this.jsonData,
+      photos: this.photos
+    }
+
+    let modal = this.modalCtrl.create(PhotosPage, data);
 
     modal.onDidDismiss((data) => {
 

@@ -1,0 +1,32 @@
+<ion-content padding>
+
+</ion-content>
+
+
+<ion-footer id="homeFooter" no-border>
+  <ion-navbar transparent>
+    <ion-grid no-padding>
+      <ion-row align-items-center style="text-align: center;">
+
+        <ion-col col-4>
+          <button ion-button round large color="customCream" (click)="openMenu()">
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        </ion-col>
+
+        <ion-col col-4>
+          <button ion-button round large color="customBlue" id="camera" (click)="takePicture()">
+            <ion-icon name="camera"></ion-icon>
+          </button>
+        </ion-col>
+
+        <ion-col col-4>
+          <ion-card id="camCard" (click)="goToPhoto()">
+            <img src={{picture}} />
+          </ion-card>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+</ion-footer>
