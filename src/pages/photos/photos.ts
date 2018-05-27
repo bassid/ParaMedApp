@@ -16,6 +16,7 @@ export class PhotosPage {
     public viewCtrl: ViewController, public platform: Platform, public alertCtrl: AlertController) {
 
     this.thePhotos = this.navParams.get('photos');
+    // this.thePhotos = ['https://yt3.ggpht.com/a-/AJLlDp0TFaxkKTbr1YMaEdj0KOLllMoFJcuWOIm4XA=s900-mo-c-c0xffffffff-rj-k-no'];
 
     if (this.navParams.get('incident')) {
       this.incidentID = "Incident #" + this.navParams.get('incident').id_num + " Photos";
@@ -40,21 +41,12 @@ export class PhotosPage {
 
   goToDetails() {
 
-    if (this.thePhotos.length == 0) {
-      let alert = this.alertCtrl.create({
-        title: 'Capture a photo!',
-        subTitle: 'Please snap at least 1 photo of your situation',
-        buttons: ['Ok']
-      });
-      alert.present();
-    } else {
-
       let data = {
         photos: this.thePhotos,
         incident: this.navParams.get('incident')
       };
 
       this.navCtrl.push(DetailsPage, data);
-    }
+    
   }
 }

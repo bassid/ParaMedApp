@@ -27,23 +27,20 @@
 
 <ion-content>
 
-  <ion-slides pager="true">
+  <ion-slides pager="true" paginationType="fraction">
     <ion-slide *ngFor="let pic of thePhotos">
-      <ion-card class="slidecard">
 
-        <img src={{pic}} />
-        <button ion-fab small round color="danger" id="remove" (click)="removePhoto(pic)">
-          <ion-icon name="md-remove"></ion-icon>
+      <div id="slideContent">
+        <ion-card class="slidecard">
+          <img id="pic" src={{pic}} />
+        </ion-card>
+
+        <button ion-fab round color="danger" id="remove" (click)="removePhoto(pic)">
+          <ion-icon id="trashIcon" name="ios-trash-outline"></ion-icon>
         </button>
+      </div>
 
-      </ion-card>
     </ion-slide>
   </ion-slides>
-  <!--   
-    <div class="photoViewButtons">
-  
-  
-  
-    </div> -->
 
 </ion-content>

@@ -7,20 +7,11 @@ ion-navbar,
   background-color: transparent !important;
 }
 
-#homeFooter {
-  height: 8em;
-}
-
-#camera {
-  font-size: 2em;
-}
-
 #menu {
   font-size: 1.5em;
 }
 
 #camCard {
-  // position: static;
   margin-left: 2.5em;
   height: 3.8em;
   width: 3.8em;
@@ -29,4 +20,12 @@ ion-navbar,
   border-color: rgb(255, 253, 246);
   border-radius: 9px;
   background: rgba(255, 255, 255, 0.5);
+}
+
+#reverseCamIcon {
+  font-size: 2.5em;
+}
+
+#takePicIcon {
+  font-size: 2em;
 }

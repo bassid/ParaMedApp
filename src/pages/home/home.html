@@ -1,7 +1,12 @@
-<ion-content padding>
+<ion-content padding [@hideShowAnimator]="hideShowAnimator" style="box-shadow: inset 0 0 45px 12px #224482;">
 
 </ion-content>
 
+<ion-fab top right>
+  <button ion-button outline large round color="customBlue" id="changeCamView" (click)="changeCamView()">
+    <ion-icon id="reverseCamIcon" name="ios-reverse-camera"></ion-icon>
+  </button>
+</ion-fab>
 
 <ion-footer id="homeFooter" no-border>
   <ion-navbar transparent>
@@ -16,7 +21,7 @@
 
         <ion-col col-4>
           <button ion-button round large color="customBlue" id="camera" (click)="takePicture()">
-            <ion-icon name="camera"></ion-icon>
+            <ion-icon id="takePicIcon" name="ios-camera"></ion-icon>
           </button>
         </ion-col>
 

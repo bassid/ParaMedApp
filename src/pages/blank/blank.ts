@@ -1,11 +1,12 @@
 import { Component, NgZone, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
 import { GetDataProvider } from '../../providers/get-data/get-data';
 
 import { UpdateCamPage } from '../update-cam/update-cam';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -16,12 +17,19 @@ export class BlankPage {
 
   data: any;
 
+  // Property used to store the callback of the event 
+  // handler to unsubscribe to it when leaving this page
+  public unregisterBackButtonAction: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
-    public dataService: GetDataProvider, public alertCtrl: AlertController, private zone: NgZone, private changeDetector: ChangeDetectorRef) {
+    public dataService: GetDataProvider, public alertCtrl: AlertController, private zone: NgZone, 
+    private changeDetector: ChangeDetectorRef, private platform: Platform) {
 
   }
 
   ionViewDidLoad() {
+
+    this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => this.myHandlerFunction());        
 
     this.storage.get('recents').then((val) => {
 
@@ -84,6 +92,14 @@ export class BlankPage {
       ]
     });
     confirmation.present();
+  }
+
+  myHandlerFunction(){    
+    this.navCtrl.setRoot(HomePage);
+  }
+
+  ionViewWillLeave(){
+    this.unregisterBackButtonAction && this.unregisterBackButtonAction();    
   }
 
 }

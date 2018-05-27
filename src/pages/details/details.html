@@ -11,13 +11,20 @@
 
 <ion-content>
   <div style="overflow:scroll; height: 100%;">
-    <div #map id="map"></div>
+    <div #map id="map">
+      <p>Loading Map</p>
+      <p>Please ensure you have Internet connection and location service is enabled</p>
+    </div>
+
+    <button ion-button icon-start round large color="customBlue" style="position: absolute; top: 0; right: 1%; z-index: 9999;" id="locate" (click)="ionViewDidLoad()">
+      <ion-icon id="getLocation" name="md-locate"></ion-icon> Find Me!
+    </button>
 
     <div class="description">
       <p id="myAddress">
         <b>Your Location:</b> {{address}}
       </p>
-
+      
       <p>
         <b>Please Provide Your Mobile Number:</b>
       </p>
@@ -27,8 +34,7 @@
         <p>
           <b>Enter Additional Information:</b>
         </p>
-        <textarea placeholder="Has anything changed since you last submitted?" id="text" rows="10" type="text"
-          value="" [(ngModel)]="additionalInfo"></textarea>
+        <textarea placeholder="Has anything changed since you last submitted?" id="text" rows="10" type="text" value="" [(ngModel)]="additionalInfo"></textarea>
       </div>
 
       <div id="additionalDesc" *ngIf="!update">

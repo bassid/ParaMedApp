@@ -1,6 +1,6 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "ParaMed",
+  "short_name": "ParaMed",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{

@@ -7,8 +7,6 @@ import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/nativ
 
 import { GetDataProvider } from '../../providers/get-data/get-data';
 
-// import { Sim } from '@ionic-native/sim';
-
 declare var google;
 
 
@@ -45,28 +43,6 @@ export class DetailsPage {
 
 
 
-  /* 
-  
-  1. Check if being created or updated
-
-  2. If created:
-      a. Create new ID
-      b. Get phone number
-      c. Get initial description
-      d. Get current location and address
-      e. Get current time
-
-  3. If updating:
-      a. Get ID
-      b. Get new phone number
-      c. Add to additional info
-      d. Get current location and address
-      e. Add to time
-
-  */
-
-
-
   constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation,
     public alertCtrl: AlertController, public zone: NgZone, private storage: Storage,
     public dataService: GetDataProvider, private nativeGeocoder: NativeGeocoder) {
@@ -84,7 +60,7 @@ export class DetailsPage {
       this.incidentTitle = "Incident #" + this.incidentID + " Details";
 
       this.mobileNum = this.navParams.get('incident').phoneNumber;
-    }
+    } 
     else {
       // alert('Creating!');
       this.update = false;
@@ -108,6 +84,7 @@ export class DetailsPage {
     // Get current location
     this.geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((resp) => {
 
+      // Get current user location
       let pos = {
         lat: resp.coords.latitude,
         lng: resp.coords.longitude
@@ -136,7 +113,7 @@ export class DetailsPage {
         position: latLng,
         map: this.map,
         animation: google.maps.Animation.DROP,
-        title: 'Me!'
+        icon: 'assets/imgs/user-pin.png'
       });
 
       // Create marker
@@ -162,7 +139,9 @@ export class DetailsPage {
 
 
   submit() {
-    // Get current date and time
+
+    if (this.address){
+      // Get current date and time
     let currentDateTime: string = new Date().toString()
     let time = currentDateTime.substring(16, 24);
     let date = currentDateTime.substring(0, 15);
@@ -313,13 +292,22 @@ export class DetailsPage {
         this.finish();
       });
     }
+    }
+    else {
+      let alert = this.alertCtrl.create({
+        title: 'Location not received',
+        subTitle: 'Your location was not found. Please ensure location service is enabled and press the "Find Me!" button',
+        buttons: ['Ok']
+      });
+      alert.present();
+    }
   }
 
 
   finish() {
     let confirmation = this.alertCtrl.create({
       title: 'Incident Reported',
-      subTitle: 'Help is on the way! Your incident ID is: #' + this.incidentID + ". \n\nPlease keep us up-to-date from Recent Incidents menu!",
+      subTitle: 'Help is on the way! Your incident ID is: #' + this.incidentID + ". \n\nPlease call 000 immediately and keep us up-to-date from Recent Incidents menu!",
       buttons: ['Done']
     });
     confirmation.present();

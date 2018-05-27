@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Http, Headers, HttpModule } from '@angular/http';
@@ -10,6 +11,7 @@ import { PhotosPage } from '../pages/photos/photos';
 import { DetailsPage } from '../pages/details/details';
 import { BlankPage } from '../pages/blank/blank';
 import { UpdateCamPage } from '../pages/update-cam/update-cam';
+import { MapPage } from '../pages/map/map';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,7 +24,6 @@ import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResul
 
 import { GetDataProvider } from '../providers/get-data/get-data';
 
-
 @NgModule({
   declarations: [
     MyApp,
@@ -31,10 +32,12 @@ import { GetDataProvider } from '../providers/get-data/get-data';
     PhotosPage,
     DetailsPage,
     BlankPage,
-    UpdateCamPage
+    UpdateCamPage,
+    MapPage
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HttpModule
@@ -47,7 +50,8 @@ import { GetDataProvider } from '../providers/get-data/get-data';
     PhotosPage,
     DetailsPage,
     BlankPage,
-    UpdateCamPage
+    UpdateCamPage,
+    MapPage
   ],
   providers: [
     StatusBar,

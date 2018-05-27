@@ -17,7 +17,7 @@ export class GetDataProvider {
 
     return this.http.post(this.apiUrl + "/database/create", JSON.stringify(data), { headers: headers })
       .subscribe(res => {
-        alert("Response: " + JSON.stringify(res));
+        // alert("Response: " + JSON.stringify(res));
       }, (err) => {
         alert("Failed: " + err);
       });
@@ -31,7 +31,7 @@ export class GetDataProvider {
 
     return this.http.post(this.apiUrl + "/database/update", JSON.stringify(data), { headers: headers })
       .subscribe(res => {
-        alert("Response: " + JSON.stringify(res));
+        // alert("Response: " + JSON.stringify(res));
       }, (err) => {
         alert("Failed: " + err);
       });
