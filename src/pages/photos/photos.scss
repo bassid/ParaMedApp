@@ -18,22 +18,17 @@ page-photo {
 
 ion-slides {
   height: 100%;
-  background: rgba(255, 253, 246, 0.8); // border: 2px solid red;
+  background: rgba(255, 253, 246, 0.8); 
 }
 
 #pic {
-  // position: relative;
-  // height: 100vh;
-  // width: 100vh;
   top: 0;
-  // bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
 }
 
 #slideContent {
-  // border: 2px solid red;
   height: 60vh;
   top: 0;
   bottom: 0;

@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
@@ -8,9 +8,6 @@ import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/nativ
 import { GetDataProvider } from '../../providers/get-data/get-data';
 
 declare var google;
-
-
-
 
 
 @Component({
@@ -31,28 +28,19 @@ export class DetailsPage {
 
   // Google Maps variables
   map: any;
-  GoogleAutocomplete: any;
-  autocomplete: any;
-  autocompleteItems: any;
-  geocoder: any;
   markers: any = [];
-  placesService: any;
-  saveDisabled: boolean;
   posLoc: any = {};
   address: string = "";
 
-
-
   constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation,
-    public alertCtrl: AlertController, public zone: NgZone, private storage: Storage,
-    public dataService: GetDataProvider, private nativeGeocoder: NativeGeocoder) {
+    private alertCtrl: AlertController, private zone: NgZone, private storage: Storage,
+    private dataService: GetDataProvider, private nativeGeocoder: NativeGeocoder) {
 
     // Get list of photos from previous page
     this.photoList = this.navParams.get('photos');
 
     // Check if new or existing incident
     if (this.navParams.get('incident')) {
-      // alert('Updating!');
       this.update = true;
 
       // Get incident ID and use in the page title
@@ -62,7 +50,6 @@ export class DetailsPage {
       this.mobileNum = this.navParams.get('incident').phoneNumber;
     } 
     else {
-      // alert('Creating!');
       this.update = false;
 
       // Use new incident in title
@@ -81,7 +68,6 @@ export class DetailsPage {
   }
 
   location() {
-    // Get current location
     this.geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((resp) => {
 
       // Get current user location
@@ -142,36 +128,34 @@ export class DetailsPage {
 
     if (this.address){
       // Get current date and time
-    let currentDateTime: string = new Date().toString()
-    let time = currentDateTime.substring(16, 24);
-    let date = currentDateTime.substring(0, 15);
+      let currentDateTime: string = new Date().toString()
+      let time = currentDateTime.substring(16, 24);
+      let date = currentDateTime.substring(0, 15);
 
-    // this.description = this.bindedDesc;
+      // Check if we need to create or update an existing incident
+      if (this.update) {
+        // Check if description was provided
+        if (this.additionalInfo) {
+          // Update existing incident
+          this.storage.get('recents').then((val) => {
 
-    // Check if we need to create or update an existing incident
-    if (this.update) {
-      // Check if description was provided
-      if (this.additionalInfo) {
-        // Update existing incident
-        this.storage.get('recents').then((val) => {
+            let storedIncidents = val;
 
-          let storedIncidents = val;
+            // Get the existing incident data
+            let dataToStore = storedIncidents.ids.find(x => x.id_num === this.navParams.get('incident').id_num);
+            let indexOfDataToStore = storedIncidents.ids.findIndex(x => Object.is(dataToStore, x));
 
-          // Get the existing incident data
-          let dataToStore = storedIncidents.ids.find(x => x.id_num === this.navParams.get('incident').id_num);
-          let indexOfDataToStore = storedIncidents.ids.findIndex(x => Object.is(dataToStore, x));
+            // Update incident attributes
+            dataToStore.photos = this.photoList;
+            dataToStore.latitude = this.posLoc.lat;
+            dataToStore.longitude = this.posLoc.lng;
+            dataToStore.address = this.address;
+            dataToStore.phoneNumber = this.mobileNum;
 
-          // Update incident attributes
-          dataToStore.photos = this.photoList;
-          dataToStore.latitude = this.posLoc.lat;
-          dataToStore.longitude = this.posLoc.lng;
-          dataToStore.address = this.address;
-          dataToStore.phoneNumber = this.mobileNum;
-
-          // Store updated dataset back on device
-          storedIncidents.ids[indexOfDataToStore] = dataToStore;
-          this.storage.set('recents', storedIncidents);
-        });
+            // Store updated dataset back on device
+            storedIncidents.ids[indexOfDataToStore] = dataToStore;
+            this.storage.set('recents', storedIncidents);
+          });
 
         if (!this.mobileNum){
           this.mobileNum = "(No number was provided)";
@@ -197,8 +181,6 @@ export class DetailsPage {
 
         // POST the data to the database
         this.dataService.updateData(data);
-
-        // alert(JSON.stringify(data));
 
         this.finish();
       }
@@ -286,8 +268,6 @@ export class DetailsPage {
 
         // POST the data to the database
         this.dataService.addData(data);
-
-        // alert(JSON.stringify(data));
 
         this.finish();
       });

@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { BlankPage } from '../pages/blank/blank';
 import { MapPage } from '../pages/map/map';
 
@@ -22,12 +21,11 @@ export class MyApp {
     public splashScreen: SplashScreen, public toastCtrl: ToastController) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
+    // Used for an example of ngFor and navigation
     this.pages = [
       { title: 'New Incident', component: HomePage, icon: 'md-camera' },
       { title: 'Recent Incidents', component: BlankPage, icon: 'md-pulse' },
       { title: 'Aid Near Me', component: MapPage, icon: 'md-medkit' },
-      // { title: 'Information', component: ListPage, icon: 'md-information-circle' }
     ];
 
   }

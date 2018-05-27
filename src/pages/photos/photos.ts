@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController, Platform, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, Platform } from 'ionic-angular';
 
 import { DetailsPage } from '../details/details';
 
@@ -9,15 +9,17 @@ import { DetailsPage } from '../details/details';
 })
 export class PhotosPage {
 
-  public thePhotos: any = [];
-  public incidentID: string;
+  // Declare variables
+  private thePhotos: any = [];
+  private incidentID: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public viewCtrl: ViewController, public platform: Platform, public alertCtrl: AlertController) {
+    private viewCtrl: ViewController, private platform: Platform) {
 
+    // Get the photos captured from previous page
     this.thePhotos = this.navParams.get('photos');
-    // this.thePhotos = ['https://yt3.ggpht.com/a-/AJLlDp0TFaxkKTbr1YMaEdj0KOLllMoFJcuWOIm4XA=s900-mo-c-c0xffffffff-rj-k-no'];
 
+    // Create title text for the modal
     if (this.navParams.get('incident')) {
       this.incidentID = "Incident #" + this.navParams.get('incident').id_num + " Photos";
     }
@@ -26,12 +28,13 @@ export class PhotosPage {
     }
   }
 
-
+  // Close modal and pass any updated photos back to previous page
   closePhotos() {
     let data = this.thePhotos;
     this.viewCtrl.dismiss(data);
   }
 
+  // Delete selected picture
   removePhoto(pic) {
     const index: number = this.thePhotos.indexOf(pic);
     if (index !== -1) {
@@ -39,6 +42,7 @@ export class PhotosPage {
     }
   }
 
+  // Go to the Details page and pass the photos to it 
   goToDetails() {
 
       let data = {

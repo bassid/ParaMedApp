@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { ModalController, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
-import { trigger,state,style,animate,transition,keyframes } from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions } from '@ionic-native/camera-preview';
 import { MenuController } from 'ionic-angular';
 
 import { PhotosPage } from '../photos/photos';
 
+// Set options for the cam preview
 const cameraPreviewOpts: CameraPreviewOptions = {
   x: 0,
   y: 0,
@@ -19,7 +20,7 @@ const cameraPreviewOpts: CameraPreviewOptions = {
   alpha: 1
 };
 
-
+// Set options for the pictures captured
 const pictureOpts: CameraPreviewPictureOptions = {
   quality: 70,
   width: window.screen.width,
@@ -41,10 +42,11 @@ const pictureOpts: CameraPreviewPictureOptions = {
 })
 export class UpdateCamPage {
 
-  public picture: string;
-  public photos: any = [];
-  public jsonData: any = {};
-  public alertPresented = false;
+  // Declare variables
+  private picture: string;
+  private photos: any = [];
+  private jsonData: any = {};
+  private alertPresented = false;
   private hideShowAnimator: boolean = true;
 
   // Property used to store the callback of the event 
@@ -52,15 +54,15 @@ export class UpdateCamPage {
   public unregisterBackButtonAction: any;
 
   constructor(public navCtrl: NavController, private cameraPreview: CameraPreview,
-    public menuCtrl: MenuController, public modalCtrl: ModalController, 
+    public menuCtrl: MenuController, private modalCtrl: ModalController, 
     public navParams: NavParams, private platform: Platform, private alertCtrl: AlertController) { 
-
+      // Get the photos passed through from the Recent Incidents menu
       this.jsonData = this.navParams.get('incident');
       this.photos = this.jsonData.photos;
       this.picture = this.photos[0];
-      // alert(JSON.stringify(this.jsonData));
   }
 
+  // Plays animation
   async hideShowAnimation(){
 
     await new Promise(resolve => {
@@ -80,34 +82,42 @@ export class UpdateCamPage {
   }
 
   ionViewDidLoad(){
+    // Set the android back button action        
     this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => this.myHandlerFunction());    
   }
 
   ionViewWillLeave(){
+    // Unregisters android back button action before leaving page    
     this.unregisterBackButtonAction && this.unregisterBackButtonAction();    
   }
 
+  // Starts camera when the page is initialised
   ngAfterViewInit() {
     this.cameraPreview.startCamera(cameraPreviewOpts).then(
       (res) => {
         console.log(res);
       },
       (err) => {
-        // alert(err);
+        console.log(err);
       });
   }
 
+  // Opens side menu
   openMenu() {
     this.menuCtrl.open();
   }
 
+  // CLoses side menu
   closeMenu() {
     this.menuCtrl.close();
   }
 
+  // Captures picture
   takePicture() {
     this.cameraPreview.takePicture(pictureOpts).then((imageData) => {
+      // Play the animation
       this.hideShowAnimation().then((animated) => {
+        // Add picture to the photos array and update the photo card with latest photo
         this.picture = 'data:image/jpeg;base64,' + imageData;
         this.photos.unshift(this.picture);
       });
@@ -116,26 +126,33 @@ export class UpdateCamPage {
     });
   }
 
+  // Opens up a modal to view photos
   goToPhoto() {
+    // Unregisters android back button action before opening modal       
     this.unregisterBackButtonAction && this.unregisterBackButtonAction();
 
+    // Set the data to pass into the modal
     let data = {
       incident: this.jsonData,
       photos: this.photos
     }
 
+    // Create modal
     let modal = this.modalCtrl.create(PhotosPage, data);
 
     modal.onDidDismiss((data) => {
+      // On dismiss, pass updated info back 
       if (data) {
         this.photos = data;
         this.picture = this.photos[0];
       }
+      // Set the android back button action          
       this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => this.myHandlerFunction());
     })
     modal.present();
   }
 
+  // Toggle camera view between front or rear
   async changeCamView(){
 
     await new Promise(resolve => {
@@ -161,6 +178,7 @@ export class UpdateCamPage {
 
   }
 
+  // Android back button action
   myHandlerFunction(){
     if (!this.alertPresented){
       this.alertPresented = true;
@@ -185,5 +203,4 @@ export class UpdateCamPage {
       alert.present(); 
      }
     }
-  
 } 

@@ -15,22 +15,25 @@ import { HomePage } from '../home/home';
 })
 export class BlankPage {
 
-  data: any;
+  // Declaring variables
+  private data: any;
 
   // Property used to store the callback of the event 
   // handler to unsubscribe to it when leaving this page
-  public unregisterBackButtonAction: any;
+  private unregisterBackButtonAction: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage,
-    public dataService: GetDataProvider, public alertCtrl: AlertController, private zone: NgZone, 
+    private dataService: GetDataProvider, private alertCtrl: AlertController, private zone: NgZone, 
     private changeDetector: ChangeDetectorRef, private platform: Platform) {
 
   }
 
   ionViewDidLoad() {
 
+    // Set the android back button action
     this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => this.myHandlerFunction());        
 
+    // Get incident from the 'recents' schema saved on device
     this.storage.get('recents').then((val) => {
 
       this.zone.run(() => {
@@ -48,6 +51,7 @@ export class BlankPage {
 
   }
 
+  // Goes to UpdateCam page using the data of a particular incident
   goToIncident(incident) {
     let data = {
       incident: incident
@@ -55,6 +59,7 @@ export class BlankPage {
     this.navCtrl.setRoot(UpdateCamPage, data);
   }
 
+  // Creates an alert message to delete an incident 
   deleteAlert(incident) {
 
     let confirmation = this.alertCtrl.create({
@@ -64,22 +69,22 @@ export class BlankPage {
         {
           text: 'Delete',
           handler: () => {
-            // alert("Deleted");
 
+            // Get the existing incident data            
             this.storage.get('recents').then((val) => {
 
               let storedIncidents = val;
 
-              // Get the existing incident data
+              // Finds location of particular incident in schema
               let findRecord = storedIncidents.ids.find(x => x.id_num === incident.id_num);
               let indexOfRecord = storedIncidents.ids.findIndex(x => Object.is(findRecord, x));
 
-              // Store updated dataset back on device
+              // Delete incident and store updated dataset back on device
               storedIncidents.ids.splice(indexOfRecord, 1);
               this.storage.set('recents', storedIncidents)
 
+              // Calls function to reload the updated dataset
               this.ionViewDidLoad();
-
             })
           }
         },
@@ -94,10 +99,12 @@ export class BlankPage {
     confirmation.present();
   }
 
+  // Android back button action
   myHandlerFunction(){    
     this.navCtrl.setRoot(HomePage);
   }
 
+  // Unregisters android back button action before leaving page
   ionViewWillLeave(){
     this.unregisterBackButtonAction && this.unregisterBackButtonAction();    
   }

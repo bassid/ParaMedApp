@@ -1,12 +1,11 @@
-import { Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
 import { Geolocation } from '@ionic-native/geolocation';
 import { HomePage } from '../home/home';
 
-
-
 declare var google;
+
 
 @IonicPage()
 @Component({
@@ -23,19 +22,12 @@ export class MapPage {
   map: any;
   service: any;
   infowindow: any;
-  GoogleAutocomplete: any;
-  autocomplete: any;
-  autocompleteItems: any;
-  geocoder: any;
   markers: any = [];
-  placesService: any;
-  saveDisabled: boolean;
-  posLoc: any = {};
-  address: string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
-  private geolocation: Geolocation, private ngZone: NgZone, public platform: Platform) { }
+  private geolocation: Geolocation, public platform: Platform) { }
 
+  // Executes once the page has loaded
   ionViewDidLoad() {
 
     this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => this.myHandlerFunction());    
@@ -70,6 +62,8 @@ export class MapPage {
         animation: google.maps.Animation.DROP,
         icon: 'assets/imgs/user-pin.png'
       });
+
+      // Add infowindow to the marker
       google.maps.event.addListener(marker, 'click', function () {
         let infoWindow = new google.maps.InfoWindow({
           maxWidth: 200
@@ -82,7 +76,7 @@ export class MapPage {
       this.markers.push(marker);
       this.map.setCenter(latLng);
 
-      // this.infowindow = new google.maps.InfoWindow();
+      // Find hospitals in a 20km radius to the user's location
       this.service = new google.maps.places.PlacesService(this.map);
       this.service.nearbySearch({
         location: pos,
@@ -100,10 +94,10 @@ export class MapPage {
     }
   }
 
+  // Creates markers for nearest hospitals
   createMarker(place) {
     if (place.name.includes("Hospital") || place.name.includes("Medical")){
 
-      var placeLoc = place.geometry.location;
       var marker = new google.maps.Marker({
         map: this.map,
         position: place.geometry.location,
